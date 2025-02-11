@@ -2,7 +2,7 @@
 import Error from "next/error";
 
 export default function GlobalError({ error }:{error:any}) {
-
+console.log(error)
   return (
     <html>
       <body>

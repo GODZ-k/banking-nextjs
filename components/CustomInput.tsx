@@ -16,6 +16,8 @@ interface CustomInput {
 }
 
 const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
+
+  console.log(formSchema)
   return (
     <FormField
       control={control}

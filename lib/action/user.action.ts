@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { createAdminClient } from "../appwrite"
+import { createAdminClient, createSessionClient } from "../appwrite"
 import { Query } from "node-appwrite";
 import { parseStringify } from "../utils";
 
@@ -63,7 +63,7 @@ export const SignIn = async ({email, password}:signInProps)=>{
 
 export const SignUp = async({password,...userData}:SignUpParams)=>{
     try {
-        
+        createSessionClient()
     } catch (error) {
         console.log(error)
     }
