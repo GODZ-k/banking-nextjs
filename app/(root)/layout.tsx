@@ -11,7 +11,7 @@ export default async function RootLayout({
 }>) {
 
 
-  const loggedIn = { firstName:"Tanmay", lastName:"khatri"}
+  const loggedIn = { firstName:"Tanmay", lastName:"khatri"} as User
 
   if(!loggedIn) redirect('/sign-in')
 

@@ -48,7 +48,7 @@ const accounts= [
           <HeaderBox 
             type="greeting"
             title="Welcome"
-            user={"Tanmay" || 'Guest'}
+            user={'Guest'}
             subtext="Access and manage your account and transactions efficiently."
           />
 
