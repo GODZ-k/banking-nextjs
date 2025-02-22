@@ -16,8 +16,6 @@ interface CustomInput {
 }
 
 const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
-
-  console.log(formSchema)
   return (
     <FormField
       control={control}
@@ -29,7 +27,7 @@ const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
           </FormLabel>
           <div className="flex w-full flex-col">
             <FormControl>
-              <Input 
+              <Input
                 placeholder={placeholder}
                 className="input-class"
                 type={name === 'password' ? 'password' : 'text'}

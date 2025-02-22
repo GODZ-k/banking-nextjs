@@ -1,11 +1,15 @@
 import { cookies } from "next/headers"
 import { Account, Client, Databases, Users } from "node-appwrite"
 
+
+const NEXT_PUBLIC_APPWRITE_URL = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string
+const NEXT_PUBLIC_PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT as string
+const NEXT_APPWRITE_API_KEY = process.env.NEXT_APPWRITE_KEY as string
 export async function createSessionClient() {
     try {
         const client: Client = new Client()
-        client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL as string)
-        client.setProject(process.env.NEXT_PUBLIC_PROJECT_ID as string)
+        client.setEndpoint(NEXT_PUBLIC_APPWRITE_URL)
+        client.setProject(NEXT_PUBLIC_PROJECT_ID)
 
         const session = (await cookies()).get("appwrite-session");
 
@@ -29,9 +33,9 @@ export async function createSessionClient() {
 export async function createAdminClient(){
     try {
         const client  = new Client()
-        client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL as string)
-        client.setProject(process.env.NEXT_PUBLIC_PROJECT_ID as string)
-        client.setKey(process.env.NEXT_PUBLIC_API_KEY as string)
+        client.setEndpoint(NEXT_PUBLIC_APPWRITE_URL)
+        client.setProject(NEXT_PUBLIC_PROJECT_ID)
+        client.setKey(NEXT_APPWRITE_API_KEY)
 
         return {
             get account(){

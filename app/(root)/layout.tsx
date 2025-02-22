@@ -1,6 +1,7 @@
 
 import MobileNav from "@/components/MobileNav";
 import Sidebar from "@/components/Sidebar";
+import { getLoggedInUser } from "@/lib/action/user.action";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -11,7 +12,7 @@ export default async function RootLayout({
 }>) {
 
 
-  const loggedIn = { firstName:"Tanmay", lastName:"khatri"} as User
+  const loggedIn = await getLoggedInUser()
 
   if(!loggedIn) redirect('/sign-in')
 
