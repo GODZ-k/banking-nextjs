@@ -1,6 +1,7 @@
 import HeaderBox from '@/components/HeaderBox';
 import RightSidebar from '@/components/RightSidebar';
 import TotalBalanceBox from '@/components/TotalBalanceBox';
+import { getAccount, getAccounts } from '@/lib/action/bank.action';
 import { getLoggedInUser } from '@/lib/action/user.action';
 
 
@@ -8,43 +9,18 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
   const currentPage = Number(page as string) || 1;
 
   const loggedIn = await getLoggedInUser()
-  console.log(loggedIn)
+  const accounts = await getAccounts({ userId: loggedIn.$id })
 
-const accounts= [
-    {
-        name:"PNB",
-        currentBalance:300
-    },
-    {
-        name:"RBI",
-        currentBalance:40000
-    },
-    {
-        name:"RBI",
-        currentBalance:1000
-    },
-    {
-        name:"RBI",
-        currentBalance:4232
-    },
-    {
-        name:"RBI",
-        currentBalance:2000
-    },
-    {
-        name:"RBI",
-        currentBalance:30
-    },
-    {
-        name:"RBI",
-        currentBalance:50000
-    },
-    {
-        name:"YES",
-        currentBalance:2100
-    }
-]
+  if (!accounts) return <div>No accounts found</div>
 
+  const accountsData = accounts?.data
+
+  const appwriteItemId = ( id as string) || accountsData[0]?.appwriteItemId
+
+  console.log("appwriteItemId", appwriteItemId)
+  const account = await getAccount({ appwriteItemId })
+
+  console.log("accounts", accounts , account)
 
   return (
     <section className="home">
@@ -53,14 +29,14 @@ const accounts= [
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn.name || "Guest"}
+            user={loggedIn.firstName || "Guest"}
             subtext="Access and manage your account and transactions efficiently."
           />
 
           <TotalBalanceBox
-            accounts={accounts as []}
-            totalBanks={3}
-            totalCurrentBalance={400}
+            accounts={accountsData}
+            totalBanks={accounts?.totalBanks}
+            totalCurrentBalance={accounts?.totalCurrentBalance}
           />
         </header>
 
@@ -74,8 +50,8 @@ const accounts= [
 
       <RightSidebar
         user={loggedIn}
-        transactions={""}
-        banks={""}
+        transactions={accounts?.transactions}
+        banks={accountsData?.slice(0, 2)}
       />
     </section>
   )
